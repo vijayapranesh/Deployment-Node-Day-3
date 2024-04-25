@@ -4,7 +4,7 @@ const express = require("express")
 const router = express.Router()
 
 const {getAllCategories,getCategoryById,addCategory,updateCategory,deletecategory} = require('../controllers/catagory.controller')
-
+const {isAuth} = require('../utils/authentication')
 // To retrive all products
 
 router.get('/categories', getAllCategories)
@@ -14,13 +14,13 @@ router.get('/categories', getAllCategories)
 router.get('/categories/:categoryId',getCategoryById)
 
 // To add a new product
-router.post('/categories',addCategory)
+router.post('/categories',isAuth,addCategory)
 
 // To update a product
-router.put('/categories/:categoryId',updateCategory)
+router.put('/categories/:categoryId',isAuth,updateCategory)
 
 // To delete a product
-router.delete('/categories/:categoryId',deletecategory)
+router.delete('/categories/:categoryId',isAuth,deletecategory)
 
 
 

@@ -1,21 +1,23 @@
 
 require('dotenv').config();
-
 const express = require('express')
-
+const app = express()
 
 const categoryRoutes = require('./routes/category.routes')
 const productRoutes = require('./routes/product.routes')
-// const userRoutes = require('./routes/user.routes')
+const authRoutes = require('./routes/auth.routes')
 
-const db = require('./db/connect')
 
-const app = express()
+const db = require('./db/connect');
+const cookieParser = require('cookie-parser');
+
+
 
 
 // Parsing the request into JSON from the frontend
 // app.use => attaching middlewares (function for specific purpose)
 app.use(express.json())
+app.use(cookieParser())
 
 //connecting DB
 db()
@@ -23,7 +25,7 @@ db()
 //custom middleware
 app.use(productRoutes);
 app.use(categoryRoutes);
-// app.use(userRoutes)
+app.use(authRoutes);
 
 const port = process.env.PORT || 5000
 
